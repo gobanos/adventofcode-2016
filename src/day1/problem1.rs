@@ -17,7 +17,7 @@ enum Direction {
 }
 
 impl Position {
-    fn make_move(&mut self, rotation: &Rotation, distance: usize) {
+    fn make_move(&mut self, rotation: Rotation, distance: usize) {
         self.face_to.rotate(&rotation);
         match self.face_to {
             Direction::North => self.y += distance as isize,
@@ -79,7 +79,7 @@ pub fn run(input: &str) -> usize {
 
         let distance = chars.as_str().parse().unwrap();
 
-        pos.make_move(&rotation, distance);
+        pos.make_move(rotation, distance);
     }
 
     pos.distance()
@@ -102,10 +102,10 @@ fn parsed_sample1() {
     let mut pos = Position::default();
 
     // R2
-    pos.make_move(&Rotation::Right, 2);
+    pos.make_move(Rotation::Right, 2);
 
     // L3
-    pos.make_move(&Rotation::Left, 3);
+    pos.make_move(Rotation::Left, 3);
 
     assert_eq!(pos.distance(), 5);
 }
@@ -115,13 +115,13 @@ fn parsed_sample2() {
     let mut pos = Position::default();
 
     // R2
-    pos.make_move(&Rotation::Right, 2);
+    pos.make_move(Rotation::Right, 2);
 
     // R2
-    pos.make_move(&Rotation::Right, 2);
+    pos.make_move(Rotation::Right, 2);
 
     // R2
-    pos.make_move(&Rotation::Right, 2);
+    pos.make_move(Rotation::Right, 2);
 
     assert_eq!(pos.distance(), 2);
 }
@@ -131,16 +131,16 @@ fn parsed_sample3() {
     let mut pos = Position::default();
 
     // R5
-    pos.make_move(&Rotation::Right, 5);
+    pos.make_move(Rotation::Right, 5);
 
     // L5
-    pos.make_move(&Rotation::Left, 5);
+    pos.make_move(Rotation::Left, 5);
 
     // R5
-    pos.make_move(&Rotation::Right, 5);
+    pos.make_move(Rotation::Right, 5);
 
     // R3
-    pos.make_move(&Rotation::Right, 3);
+    pos.make_move(Rotation::Right, 3);
 
     assert_eq!(pos.distance(), 12);
 }
