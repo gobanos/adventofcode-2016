@@ -21,9 +21,9 @@ impl Position {
         self.face_to.rotate(&rotation);
         match self.face_to {
             Direction::North => self.y += distance as isize,
-            Direction::East  => self.x += distance as isize,
+            Direction::East => self.x += distance as isize,
             Direction::South => self.y -= distance as isize,
-            Direction::West  => self.x -= distance as isize,
+            Direction::West => self.x -= distance as isize,
         }
     }
 
@@ -48,19 +48,19 @@ impl Direction {
             &Rotation::Left => {
                 match *self {
                     Direction::North => Direction::West,
-                    Direction::East  => Direction::North,
+                    Direction::East => Direction::North,
                     Direction::South => Direction::East,
-                    Direction::West  => Direction::South,
+                    Direction::West => Direction::South,
                 }
-            },
+            }
             &Rotation::Right => {
                 match *self {
                     Direction::North => Direction::East,
-                    Direction::East  => Direction::South,
+                    Direction::East => Direction::South,
                     Direction::South => Direction::West,
-                    Direction::West  => Direction::North,
+                    Direction::West => Direction::North,
                 }
-            },
+            }
         };
     }
 }
