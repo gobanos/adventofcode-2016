@@ -8,4 +8,5 @@ fn main() {
 
     println!("DAY2:");
     println!(" - PROBLEM1: {}", day2::problem1::challenge());
+    println!(" - PROBLEM2: {}", day2::problem2::challenge());
 }
