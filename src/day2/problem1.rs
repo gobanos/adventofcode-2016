@@ -21,16 +21,16 @@ impl Keypad {
             match direction {
                 &Direction::Up => {
                     self.row = if self.row == 0 { 0 } else { self.row - 1 };
-                },
+                }
                 &Direction::Right => {
                     self.col = if self.col == 2 { 2 } else { self.col + 1 };
-                },
+                }
                 &Direction::Left => {
                     self.col = if self.col == 0 { 0 } else { self.col - 1 };
-                },
+                }
                 &Direction::Down => {
                     self.row = if self.row == 2 { 2 } else { self.row + 1 };
-                },
+                }
             }
         }
 
@@ -41,11 +41,7 @@ impl Keypad {
 impl Default for Keypad {
     fn default() -> Self {
         Keypad {
-            pad: [
-                ['1', '2', '3'],
-                ['4', '5', '6'],
-                ['7', '8', '9'],
-            ],
+            pad: [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']],
             row: 1,
             col: 1,
         }
@@ -65,7 +61,7 @@ pub fn run(input: &str) -> String {
                 'R' => Right,
                 'L' => Left,
                 'D' => Down,
-                _ =>  unreachable!(),
+                _ => unreachable!(),
             }
         });
 

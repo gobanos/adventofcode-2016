@@ -27,25 +27,25 @@ impl Keypad {
                     if x.abs() + y.abs() <= 2 {
                         self.row -= 1;
                     }
-                },
+                }
                 &Direction::Right => {
                     x += 1;
                     if x.abs() + y.abs() <= 2 {
                         self.col += 1;
                     }
-                },
+                }
                 &Direction::Left => {
                     x -= 1;
                     if x.abs() + y.abs() <= 2 {
                         self.col -= 1;
                     }
-                },
+                }
                 &Direction::Down => {
                     y += 1;
                     if x.abs() + y.abs() <= 2 {
                         self.row += 1;
                     }
-                },
+                }
             }
         }
 
@@ -56,13 +56,11 @@ impl Keypad {
 impl Default for Keypad {
     fn default() -> Self {
         Keypad {
-            pad: [
-                [' ', ' ', '1', ' ', ' '],
-                [' ', '2', '3', '4', ' '],
-                ['5', '6', '7', '8', '9'],
-                [' ', 'A', 'B', 'C', ' '],
-                [' ', ' ', 'D', ' ', ' '],
-            ],
+            pad: [[' ', ' ', '1', ' ', ' '],
+                  [' ', '2', '3', '4', ' '],
+                  ['5', '6', '7', '8', '9'],
+                  [' ', 'A', 'B', 'C', ' '],
+                  [' ', ' ', 'D', ' ', ' ']],
             row: 2,
             col: 0,
         }
@@ -82,7 +80,7 @@ pub fn run(input: &str) -> String {
                 'R' => Right,
                 'L' => Left,
                 'D' => Down,
-                _ =>  unreachable!(),
+                _ => unreachable!(),
             }
         });
 
