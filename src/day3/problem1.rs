@@ -6,17 +6,11 @@ struct Triangle {
 
 impl Triangle {
     fn new(a: usize, b: usize, c: usize) -> Self {
-        Triangle {
-            a: a,
-            b: b,
-            c: c,
-        }
+        Triangle { a: a, b: b, c: c }
     }
 
     fn is_valid(&self) -> bool {
-        self.a + self.b > self.c &&
-        self.a + self.c > self.b &&
-        self.b + self.c > self.a
+        self.a + self.b > self.c && self.a + self.c > self.b && self.b + self.c > self.a
     }
 }
 
@@ -27,11 +21,9 @@ pub fn run(input: &str) -> usize {
         let triangle_str = line.trim().split_whitespace().collect::<Vec<_>>();
         assert!(triangle_str.len() == 3);
 
-        let triangle = Triangle::new(
-            triangle_str[0].parse().unwrap(),
-            triangle_str[1].parse().unwrap(),
-            triangle_str[2].parse().unwrap(),
-        );
+        let triangle = Triangle::new(triangle_str[0].parse().unwrap(),
+                                     triangle_str[1].parse().unwrap(),
+                                     triangle_str[2].parse().unwrap());
 
         if triangle.is_valid() {
             nb_valid += 1;

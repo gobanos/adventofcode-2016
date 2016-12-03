@@ -6,17 +6,11 @@ struct Triangle {
 
 impl Triangle {
     fn new(a: usize, b: usize, c: usize) -> Self {
-        Triangle {
-            a: a,
-            b: b,
-            c: c,
-        }
+        Triangle { a: a, b: b, c: c }
     }
 
     fn is_valid(&self) -> bool {
-        self.a + self.b > self.c &&
-        self.a + self.c > self.b &&
-        self.b + self.c > self.a
+        self.a + self.b > self.c && self.a + self.c > self.b && self.b + self.c > self.a
     }
 }
 
@@ -24,9 +18,7 @@ pub fn run(input: &str) -> usize {
     let mut nb_valid = 0;
 
     let mut index = 0;
-    let mut cols = [[0, 0, 0],
-                    [0, 0, 0],
-                    [0, 0, 0]];
+    let mut cols = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
     for line in input.lines() {
         let input_str = line.trim().split_whitespace().collect::<Vec<_>>();
@@ -42,11 +34,7 @@ pub fn run(input: &str) -> usize {
             index = 0;
 
             for col in cols.iter() {
-                let triangle = Triangle::new(
-                    col[0],
-                    col[1],
-                    col[2],
-                );
+                let triangle = Triangle::new(col[0], col[1], col[2]);
 
                 if triangle.is_valid() {
                     nb_valid += 1;
@@ -90,6 +78,8 @@ fn parsed_valid() {
 mod test {
     #[test]
     fn sample() {
-        assert_eq!(super::run("101 301 501\n102 302 502\n103 303 503\n201 401 601\n202 402 602\n203 403 603"), 6);
+        assert_eq!(super::run("101 301 501\n102 302 502\n103 303 503\n201 401 601\n202 402 \
+                               602\n203 403 603"),
+                   6);
     }
 }
