@@ -161,12 +161,3 @@ fn decrypt() {
 
     assert_eq!(room.decrypt(), "very encrypted name");
 }
-
-#[cfg(test)]
-mod test {
-    #[test]
-    fn sample() {
-        let sum = super::run("aaaaa-bbb-z-y-x-123[abxyz]\na-b-c-d-e-f-g-h-987[abcde]\nnot-a-real-room-404[oarel]\ntotally-real-room-200[decoy]");
-        assert_eq!(sum, 1514);
-    }
-}
