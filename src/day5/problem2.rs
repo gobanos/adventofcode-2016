@@ -12,7 +12,7 @@ impl WarGame {
         WarGame {
             id: id.into(),
             index: 0,
-            password: String::with_capacity(8),
+            password: "________".into(),
         }
     }
 
@@ -25,23 +25,37 @@ impl WarGame {
         digest.result_str()
     }
 
-    fn find_char(&mut self) -> char {
+    fn find_char(&mut self) -> (char, char) {
         loop {
             let md5 = self.md5();
             self.index += 1;
 
             if md5.starts_with("00000") {
-                return md5.chars().skip(5).next().unwrap()
+                let mut iter = md5.chars().skip(5);
+                return (
+                    iter.next().unwrap(),
+                    iter.next().unwrap(),
+                )
             }
         }
     }
 
     fn break_password(&mut self) -> &str {
-        for _ in 0..8 {
-            let pass_char = self.find_char();
-            self.password.push(pass_char);
+        let mut found = (0..8).map(|_| false).collect::<Vec<_>>();
+        loop {
+            let (key, pass_char) = self.find_char();
+            if let Some(key) = key.to_digit(10) {
+                let key = key as usize;
+                if key < 8 && !found[key] {
+                    found[key] = true;
+                    self.password = format!("{}{}{}", &self.password[0..key], pass_char, &self.password[key+1..]);
+
+                    if !found.contains(&false) {
+                        return &self.password
+                    }
+                }
+            }
         }
-        &self.password
     }
 }
 
@@ -63,19 +77,10 @@ pub fn challenge() -> String {
     run(input.trim())
 }
 
-#[test]
-fn sample() {
-    let mut war_game = WarGame::new("abc");
-
-    assert_eq!(war_game.find_char(), '1');
-    assert_eq!(war_game.find_char(), '8');
-    assert_eq!(war_game.find_char(), 'f');
-}
-
 #[cfg(test)]
 mod test {
     #[test]
     fn sample() {
-        assert_eq!(super::run("abc"), "18f47a30");
+        assert_eq!(super::run("abc"), "05ace8e3");
     }
 }

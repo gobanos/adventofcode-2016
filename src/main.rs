@@ -25,4 +25,8 @@ fn main() {
     println!("DAY4:");
     println!(" - PROBLEM1: {}", day4::problem1::challenge());
     println!(" - PROBLEM2: {}", day4::problem2::challenge().unwrap());
+
+    println!("DAY5:");
+    println!(" - PROBLEM1: {}", day5::problem1::challenge());
+    println!(" - PROBLEM2: {}", day5::problem2::challenge());
 }
