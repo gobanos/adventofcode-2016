@@ -64,6 +64,7 @@ pub fn challenge() -> String {
 }
 
 #[test]
+#[ignore]
 fn sample() {
     let mut war_game = WarGame::new("abc");
 
@@ -75,6 +76,7 @@ fn sample() {
 #[cfg(test)]
 mod test {
     #[test]
+    #[ignore]
     fn sample() {
         assert_eq!(super::run("abc"), "18f47a30");
     }

@@ -80,6 +80,7 @@ pub fn challenge() -> String {
 #[cfg(test)]
 mod test {
     #[test]
+    #[ignore]
     fn sample() {
         assert_eq!(super::run("abc"), "05ace8e3");
     }
