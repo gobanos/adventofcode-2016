@@ -18,17 +18,17 @@ impl Keypad {
 
     fn follow(&mut self, instructions: &[Direction]) -> char {
         for direction in instructions.iter() {
-            match direction {
-                &Direction::Up => {
+            match *direction {
+                Direction::Up => {
                     self.row = if self.row == 0 { 0 } else { self.row - 1 };
                 }
-                &Direction::Right => {
+                Direction::Right => {
                     self.col = if self.col == 2 { 2 } else { self.col + 1 };
                 }
-                &Direction::Left => {
+                Direction::Left => {
                     self.col = if self.col == 0 { 0 } else { self.col - 1 };
                 }
-                &Direction::Down => {
+                Direction::Down => {
                     self.row = if self.row == 2 { 2 } else { self.row + 1 };
                 }
             }

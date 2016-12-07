@@ -28,7 +28,7 @@ impl Room {
 
         for _ in 0..5 {
             let mut max = (' ', 0);
-            for (&c, &count) in self.letters.iter() {
+            for (&c, &count) in &self.letters {
                 if sum.contains(c) {
                     continue;
                 }

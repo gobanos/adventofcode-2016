@@ -2,41 +2,48 @@ use crypto::md5::Md5;
 use crypto::digest::Digest;
 
 struct WarGame {
-    id: String,
+    id: Vec<u8>,
     index: usize,
     password: String,
+    digest: Md5,
 }
 
 impl WarGame {
     fn new(id: &str) -> Self {
         WarGame {
-            id: id.into(),
+            id: id.as_bytes().into(),
             index: 0,
             password: "________".into(),
+            digest: Md5::new(),
         }
     }
 
-    fn md5(&self) -> String {
-        let to_hash = format!("{}{}", self.id, self.index);
-        let mut digest = Md5::new();
+    fn md5(&mut self) -> [u8; 16] {
+        let mut output = [0; 16];
 
-        digest.input_str(&to_hash);
+        self.digest.input(&self.id);
+        self.digest.input(self.index.to_string().as_bytes());
 
-        digest.result_str()
+        self.digest.result(&mut output);
+
+        self.digest.reset();
+
+        output
     }
 
-    fn find_char(&mut self) -> (char, char) {
+    fn find_char(&mut self) -> (u8, u8) {
         loop {
             let md5 = self.md5();
             self.index += 1;
 
-            if md5.starts_with("00000") {
-                let mut iter = md5.chars().skip(5);
+            let sum = md5[0] as i32 + md5[1] as i32 + (md5[2] >> 4) as i32;
+            if sum == 0 {
                 return (
-                    iter.next().unwrap(),
-                    iter.next().unwrap(),
+                    md5[2],
+                    md5[3] >> 4,
                 )
             }
+
         }
     }
 
@@ -44,15 +51,33 @@ impl WarGame {
         let mut found = (0..8).map(|_| false).collect::<Vec<_>>();
         loop {
             let (key, pass_char) = self.find_char();
-            if let Some(key) = key.to_digit(10) {
-                let key = key as usize;
-                if key < 8 && !found[key] {
-                    found[key] = true;
-                    self.password = format!("{}{}{}", &self.password[0..key], pass_char, &self.password[key+1..]);
+            let key = key as usize;
+            let pass_char = match pass_char {
+                0 => '0',
+                1 => '1',
+                2 => '2',
+                3 => '3',
+                4 => '4',
+                5 => '5',
+                6 => '6',
+                7 => '7',
+                8 => '8',
+                9 => '9',
+                10 => 'a',
+                11 => 'b',
+                12 => 'c',
+                13 => 'd',
+                14 => 'e',
+                15 => 'f',
+                _ => unreachable!(),
+            };
 
-                    if !found.contains(&false) {
-                        return &self.password
-                    }
+            if key < 8 && !found[key] {
+                found[key] = true;
+                self.password = format!("{}{}{}", &self.password[0..key], pass_char, &self.password[key+1..]);
+
+                if !found.contains(&false) {
+                    return &self.password
                 }
             }
         }
@@ -80,7 +105,6 @@ pub fn challenge() -> String {
 #[cfg(test)]
 mod test {
     #[test]
-    #[ignore]
     fn sample() {
         assert_eq!(super::run("abc"), "05ace8e3");
     }

@@ -31,7 +31,7 @@ impl Room {
 
         for _ in 0..5 {
             let mut max = (' ', 0);
-            for (&c, &count) in self.letters.iter() {
+            for (&c, &count) in &self.letters {
                 if sum.contains(c) {
                     continue;
                 }
@@ -49,7 +49,7 @@ impl Room {
     fn decrypt(&self) -> String {
         let mut result = String::new();
         let a_int = 'a' as isize;
-        for word in self.words.iter() {
+        for word in &self.words {
             for c in word.chars() {
                 let as_int = (c as isize) - a_int as isize;
                 let decrypted_int = ((as_int + self.id as isize) % 26 + 26) % 26 + a_int;
@@ -77,17 +77,15 @@ pub fn run(input: &str) -> Option<usize> {
             room.add_word(word);
         }
 
-        if room.is_real() {
-            if room.decrypt() == "northpole object storage" {
-                return Some(room.id);
-            }
+        if room.is_real() && room.decrypt() == "northpole object storage" {
+            return Some(room.id);
         }
     }
 
     None
 }
 
-pub fn challenge() -> Option<usize> {
+pub fn challenge() -> usize {
     use std::io::prelude::*;
     use std::fs::File;
 
@@ -96,7 +94,7 @@ pub fn challenge() -> Option<usize> {
 
     f.read_to_string(&mut input).unwrap();
 
-    run(&input)
+    run(&input).unwrap()
 }
 
 #[test]

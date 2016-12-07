@@ -21,26 +21,26 @@ impl Keypad {
             let mut x = self.col as isize - 2;
             let mut y = self.row as isize - 2;
 
-            match direction {
-                &Direction::Up => {
+            match *direction {
+                Direction::Up => {
                     y -= 1;
                     if x.abs() + y.abs() <= 2 {
                         self.row -= 1;
                     }
                 }
-                &Direction::Right => {
+                Direction::Right => {
                     x += 1;
                     if x.abs() + y.abs() <= 2 {
                         self.col += 1;
                     }
                 }
-                &Direction::Left => {
+                Direction::Left => {
                     x -= 1;
                     if x.abs() + y.abs() <= 2 {
                         self.col -= 1;
                     }
                 }
-                &Direction::Down => {
+                Direction::Down => {
                     y += 1;
                     if x.abs() + y.abs() <= 2 {
                         self.row += 1;

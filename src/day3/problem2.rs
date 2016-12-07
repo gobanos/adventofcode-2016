@@ -33,7 +33,7 @@ pub fn run(input: &str) -> usize {
         if index % 3 == 0 {
             index = 0;
 
-            for col in cols.iter() {
+            for col in &cols {
                 let triangle = Triangle::new(col[0], col[1], col[2]);
 
                 if triangle.is_valid() {

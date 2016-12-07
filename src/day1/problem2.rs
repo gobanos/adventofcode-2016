@@ -33,9 +33,9 @@ impl Route {
                 Direction::West => Point { x: last_position.x - i, ..last_position },
             };
 
-            if let Some(_) = self.journey
+            if self.journey
                 .iter()
-                .position(|ref p| p.x == position.x && p.y == position.y) {
+                .any(|p| p.x == position.x && p.y == position.y) {
                 return Some((position.x.abs() + position.y.abs()) as usize);
             }
 
@@ -56,8 +56,8 @@ impl Default for Route {
 
 impl Direction {
     fn rotate(&mut self, m: &Rotation) {
-        *self = match m {
-            &Rotation::Left => {
+        *self = match *m {
+            Rotation::Left => {
                 match *self {
                     Direction::North => Direction::West,
                     Direction::East => Direction::North,
@@ -65,7 +65,7 @@ impl Direction {
                     Direction::West => Direction::South,
                 }
             }
-            &Rotation::Right => {
+            Rotation::Right => {
                 match *self {
                     Direction::North => Direction::East,
                     Direction::East => Direction::South,
@@ -99,7 +99,7 @@ pub fn run(input: &str) -> Option<usize> {
     None
 }
 
-pub fn challenge() -> Option<usize> {
+pub fn challenge() -> usize {
     use std::io::prelude::*;
     use std::fs::File;
 
@@ -108,7 +108,7 @@ pub fn challenge() -> Option<usize> {
 
     f.read_to_string(&mut input).unwrap();
 
-    run(&input)
+    run(&input).unwrap()
 }
 
 #[test]

@@ -44,8 +44,8 @@ impl Default for Position {
 
 impl Direction {
     fn rotate(&mut self, m: &Rotation) {
-        *self = match m {
-            &Rotation::Left => {
+        *self = match *m {
+            Rotation::Left => {
                 match *self {
                     Direction::North => Direction::West,
                     Direction::East => Direction::North,
@@ -53,7 +53,7 @@ impl Direction {
                     Direction::West => Direction::South,
                 }
             }
-            &Rotation::Right => {
+            Rotation::Right => {
                 match *self {
                     Direction::North => Direction::East,
                     Direction::East => Direction::South,
