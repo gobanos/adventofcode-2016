@@ -47,9 +47,7 @@ impl Corrector {
 
 impl Default for Corrector {
     fn default() -> Self {
-        Corrector {
-            message: None,
-        }
+        Corrector { message: None }
     }
 }
 

@@ -38,10 +38,7 @@ impl WarGame {
 
             let sum = md5[0] as i32 + md5[1] as i32 + (md5[2] >> 4) as i32;
             if sum == 0 {
-                return (
-                    md5[2],
-                    md5[3] >> 4,
-                )
+                return (md5[2], md5[3] >> 4);
             }
 
         }
@@ -74,10 +71,13 @@ impl WarGame {
 
             if key < 8 && !found[key] {
                 found[key] = true;
-                self.password = format!("{}{}{}", &self.password[0..key], pass_char, &self.password[key+1..]);
+                self.password = format!("{}{}{}",
+                                        &self.password[0..key],
+                                        pass_char,
+                                        &self.password[key + 1..]);
 
                 if !found.contains(&false) {
-                    return &self.password
+                    return &self.password;
                 }
             }
         }
