@@ -12,6 +12,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 fn main() {
     let day1_p1_thread = thread::spawn(day1::problem1::challenge);
@@ -34,6 +35,9 @@ fn main() {
 
     let day7_p1_thread = thread::spawn(day7::problem1::challenge);
     let day7_p2_thread = thread::spawn(day7::problem2::challenge);
+
+    let day8_p1_thread = thread::spawn(day8::problem1::challenge);
+    let day8_p2_thread = thread::spawn(day8::problem2::challenge);
 
     println!("DAY1:");
     println!(" - PROBLEM1: {}", day1_p1_thread.join().unwrap());
@@ -62,4 +66,8 @@ fn main() {
     println!("DAY7:");
     println!(" - PROBLEM1: {}", day7_p1_thread.join().unwrap());
     println!(" - PROBLEM2: {}", day7_p2_thread.join().unwrap());
+
+    println!("DAY8:");
+    println!(" - PROBLEM1: {}", day8_p1_thread.join().unwrap());
+    println!(" - PROBLEM2: {}", day8_p2_thread.join().unwrap());
 }
